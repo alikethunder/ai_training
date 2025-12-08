@@ -1,0 +1,1 @@
+Assets and scripts for ai training
