@@ -6,17 +6,15 @@ import os
 with open("rus_5000.txt", "r", encoding="utf-8") as file:
     words = file.readlines()
 
-# Ensure fonts are available in the same directory or provide the full path to the font files
-times_new_roman_font = "times.ttf"  # Replace with the path to Times New Roman font
-tahoma_font = "tahoma.ttf"          # Replace with the path to Tahoma font
-comic_sans_font = "comic.ttf"       # Replace with the path to Comic Sans font
+# Get all font files from the fonts folder
+fonts_dir = "fonts"
+font_files = [f for f in os.listdir(fonts_dir) if f.endswith(('.ttf', '.otf'))]
 
-# Ensure fonts exist
-if not all(os.path.exists(font) for font in [times_new_roman_font, tahoma_font, comic_sans_font]):
-    raise FileNotFoundError("One or more required font files are missing. Please provide the correct paths.")
+if not font_files:
+    raise FileNotFoundError("No font files found in the fonts directory.")
 
 # Create output directory if it doesn't exist
-output_dir = "img5000"
+output_dir = "img"
 os.makedirs(output_dir, exist_ok=True)
 
 # Image size
@@ -44,7 +42,6 @@ def transliterate(text):
     for cyrillic, latin in replacements.items():
         text = text.replace(cyrillic, latin)
     return text
-    
 
 # Iterate through the words and create images
 for i, word in enumerate(words):
@@ -52,15 +49,18 @@ for i, word in enumerate(words):
 
     # Determine font and colors based on the line number
     if (i + 1) % 100 == 0:  # Every 100th image
-        font = ImageFont.truetype(comic_sans_font, 100)
+        font_path = os.path.join(fonts_dir, random.choice(font_files))
+        font = ImageFont.truetype(font_path, 100)
         text_color = "red"
         background_color = "grey"
     elif (i + 1) % 2 == 0:  # Even images
-        font = ImageFont.truetype(tahoma_font, 100)
+        font_path = os.path.join(fonts_dir, random.choice(font_files))
+        font = ImageFont.truetype(font_path, 100)
         text_color = "white"
         background_color = "black"
     else:  # Odd images
-        font = ImageFont.truetype(times_new_roman_font, 100)
+        font_path = os.path.join(fonts_dir, random.choice(font_files))
+        font = ImageFont.truetype(font_path, 100)
         text_color = "black"
         background_color = "white"
 
