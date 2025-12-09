@@ -3,7 +3,7 @@ import random
 import os
 
 # Load the dictionary file
-with open("rus_5000.txt", "r", encoding="utf-8") as file:
+with open("ru.txt", "r", encoding="utf-8") as file:
     words = file.readlines()
 
 # Get all font files from the fonts folder
