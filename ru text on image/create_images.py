@@ -46,8 +46,10 @@ def transliterate(text):
 # Iterate through the words and create images
 for i, word in enumerate(words):
     word = word.strip()  # Remove any extra whitespace or newline characters
-    word = word.replace('\n', os.linesep)
-
+    
+    # Split text into lines if it contains newlines
+    lines = word.split('\n')
+    
     # For each word, create 3 images for each font
     color_schemes = [
         ("white", "black"),   # White text on black background
@@ -68,31 +70,47 @@ for i, word in enumerate(words):
             img = Image.new("RGB", (img_width, img_height), background_color)
             draw = ImageDraw.Draw(img)
 
-            # Calculate text size and position
-            text_width, text_height = calculate_text_size(word, font)
-            text_x = (img_width - text_width) // 2
-            text_y = (img_height - text_height) // 2
-
+            # Calculate total text height
+            total_height = 0
+            line_heights = []
+            for line in lines:
+                text_width, text_height = calculate_text_size(line, font)
+                line_heights.append(text_height)
+                total_height += text_height + 20  # Add spacing between lines
+            
+            # Calculate starting Y position to center vertically
+            start_y = (img_height - total_height) // 2
+            
+            # Draw each line
+            current_y = start_y
+                
             # Create a separate image for text and apply random rotation
             text_img = Image.new("L", (img_width, img_height), 0)  # 'L' mode for grayscale
             text_draw = ImageDraw.Draw(text_img)
-           
-            # bold
-            if (i + 1) % 2 == 0:  # Even word
-                text_draw.text((text_x, text_y), word, font=font, fill=255, stroke_width=2, stroke_fill="white")  # White text on black background with bold
-            else:
-                text_draw.text((text_x, text_y), word, font=font, fill=255)  # White text on black background
+
+            for line, line_height in zip(lines, line_heights):
+                text_width, text_height = calculate_text_size(line, font)
+                text_x = (img_width - text_width) // 2
+                current_y += line_height // 2  # Adjust for vertical centering
+               
+                # bold
+                if (i + 1) % 2 == 0:  # Even word
+                    text_draw.text((text_x, current_y), line, font=font, fill=255, stroke_width=2, stroke_fill="white")
+                else:
+                    text_draw.text((text_x, current_y), line, font=font, fill=255)
+
+                # Colorize the rotated text and paste it onto the base image
+                colored_text = ImageOps.colorize(rotated_text, black=background_color, white=text_color)
+                img.paste(colored_text, (0, 0), rotated_text)
+
+                current_y += line_height + 20  # Move to next line with spacing
 
             # Apply anti-aliasing during rotation
             rotated_text = text_img.rotate(
                 random.uniform(-15, 15),
-                resample=Image.Resampling.BICUBIC,  # Anti-aliasing for smooth edges
+                resample=Image.Resampling.BICUBIC,
                 expand=True
             )
-
-            # Colorize the rotated text and paste it onto the base image
-            colored_text = ImageOps.colorize(rotated_text, black=background_color, white=text_color)
-            img.paste(colored_text, (0, 0), rotated_text)
 
             # Save the image
             filename = f"ru_{i + 1}_{font_name}_{text_color}"
