@@ -42,6 +42,7 @@ def transliterate(text):
     """Replace Cyrillic letters in text with their transliterated Latin equivalents."""
     for cyrillic, latin in replacements.items():
         text = text.replace(cyrillic, latin)
+    text = text.replace(":", os.linesep)
     return text
 
 # Iterate through the words and create images
@@ -110,6 +111,15 @@ for i, word in enumerate(words):
 
                 # Colorize the rotated text and paste it onto the base image
                 colored_text = ImageOps.colorize(rotated_text, black=background_color, white=text_color)
+
+                rotated_width, rotated_height = colored_text.size
+
+                # Calculate top-left x-coordinate
+                paste_x = (img_width - rotated_width) // 2
+
+                # Calculate top-left y-coordinate
+                paste_y = (img_height - rotated_height) // 2
+
                 img.paste(colored_text, (0, 0), rotated_text)
 
                 current_y += line_height + 20  # Move to next line with spacing
