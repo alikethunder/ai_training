@@ -87,6 +87,7 @@ for i, word in enumerate(words):
             # Create a separate image for text and apply random rotation
             text_img = Image.new("L", (img_width, img_height), 0)  # 'L' mode for grayscale
             text_draw = ImageDraw.Draw(text_img)
+            rotation = random.uniform(-15, 15)
 
             for line, line_height in zip(lines, line_heights):
                 text_width, text_height = calculate_text_size(line, font)
@@ -99,18 +100,18 @@ for i, word in enumerate(words):
                 else:
                     text_draw.text((text_x, current_y), line, font=font, fill=255)
 
+                # Apply anti-aliasing during rotation
+                rotated_text = text_img.rotate(
+                    rotation,
+                    resample=Image.Resampling.BICUBIC,
+                    expand=True
+                )
+
                 # Colorize the rotated text and paste it onto the base image
                 colored_text = ImageOps.colorize(rotated_text, black=background_color, white=text_color)
                 img.paste(colored_text, (0, 0), rotated_text)
 
                 current_y += line_height + 20  # Move to next line with spacing
-
-            # Apply anti-aliasing during rotation
-            rotated_text = text_img.rotate(
-                random.uniform(-15, 15),
-                resample=Image.Resampling.BICUBIC,
-                expand=True
-            )
 
             # Save the image
             filename = f"ru_{i + 1}_{font_name}_{text_color}"
