@@ -120,7 +120,7 @@ for i, word in enumerate(words):
                 # Calculate top-left y-coordinate
                 paste_y = (img_height - rotated_height) // 2
 
-                img.paste(colored_text, (0, 0), rotated_text)
+                img.paste(colored_text, (paste_x, paste_y))
 
                 current_y += line_height + 20  # Move to next line with spacing
 
