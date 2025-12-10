@@ -14,7 +14,7 @@ if not font_files:
     raise FileNotFoundError("No font files found in the fonts directory.")
 
 # Create output directory if it doesn't exist
-output_dir = "img5000"
+output_dir = "img"
 os.makedirs(output_dir, exist_ok=True)
 
 # Image size
