@@ -21,8 +21,9 @@ os.makedirs(output_dir, exist_ok=True)
 img_width, img_height = 720, 1280
 
 # Function to calculate text size using textbbox
-def calculate_text_size(text, font):
+def calculate_text_size(text, font, rotation):
     dummy_img = Image.new("RGB", (1, 1))
+    dummy_img.rotate(rotation, expand=True)
     draw = ImageDraw.Draw(dummy_img)
     bbox = draw.textbbox((0, 0), text, font=font)
     width = bbox[2] - bbox[0]
@@ -59,7 +60,7 @@ for i, word in enumerate(words):
 
     for font_file in font_files:
         font_path = os.path.join(fonts_dir, font_file)
-        font = ImageFont.truetype(font_path, 60)
+        font = ImageFont.truetype(font_path, 75)
         
         # Extract font name without extension for filename
         font_name = os.path.splitext(os.path.basename(font_path))[0]
@@ -90,7 +91,7 @@ for i, word in enumerate(words):
             rotation = random.uniform(-15, 15)
 
             for line, line_height in zip(lines, line_heights):
-                text_width, text_height = calculate_text_size(line, font)
+                text_width, text_height = calculate_text_size(line, font, rotation)
                 text_x = (img_width - text_width) // 2
                 current_y += line_height // 2  # Adjust for vertical centering
                
