@@ -40,8 +40,8 @@ replacements = {
 
 def transliterate(text):
     """Replace Cyrillic letters in text with their transliterated Latin equivalents."""
-    for cyrillic, latin in replacements.items():
-        text = text.replace(cyrillic, latin)
+    """ for cyrillic, latin in replacements.items():
+        text = text.replace(cyrillic, latin) """
     text = text.replace(":", os.linesep)
     return text
 
