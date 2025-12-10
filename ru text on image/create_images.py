@@ -46,6 +46,7 @@ def transliterate(text):
 # Iterate through the words and create images
 for i, word in enumerate(words):
     word = word.strip()  # Remove any extra whitespace or newline characters
+    word = word.replace('\n', os.linesep)
 
     # For each word, create 3 images for each font
     color_schemes = [
