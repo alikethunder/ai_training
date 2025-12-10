@@ -64,7 +64,7 @@ for i, word in enumerate(words):
         font_size = 75
         if "BadScript" in font_file:
           font_size = 55
-        font = ImageFont.truetype(font_path, 75)
+        font = ImageFont.truetype(font_path, font_size)
         
         # Extract font name without extension for filename
         font_name = os.path.splitext(os.path.basename(font_path))[0]
