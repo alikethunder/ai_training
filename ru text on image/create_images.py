@@ -56,7 +56,7 @@ for i, word in enumerate(words):
 
     for font_file in font_files:
         font_path = os.path.join(fonts_dir, font_file)
-        font = ImageFont.truetype(font_path, 50)
+        font = ImageFont.truetype(font_path, 60)
         
         # Extract font name without extension for filename
         font_name = os.path.splitext(os.path.basename(font_path))[0]
@@ -84,7 +84,7 @@ for i, word in enumerate(words):
 
             # Apply anti-aliasing during rotation
             rotated_text = text_img.rotate(
-                random.uniform(-10, 10),
+                random.uniform(-15, 15),
                 resample=Image.Resampling.BICUBIC,  # Anti-aliasing for smooth edges
                 expand=True
             )
