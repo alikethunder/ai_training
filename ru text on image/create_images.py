@@ -48,7 +48,7 @@ for i, word in enumerate(words):
     word = word.strip()  # Remove any extra whitespace or newline characters
     
     # Split text into lines if it contains newlines
-    lines = word.split('\n')
+    lines = word.split(':')
     
     # For each word, create 3 images for each font
     color_schemes = [
