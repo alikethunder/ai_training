@@ -73,9 +73,10 @@ for i, word in enumerate(words):
 
             # Calculate total text height
             total_height = 0
+            rotation = random.uniform(-15, 15)
             line_heights = []
             for line in lines:
-                text_width, text_height = calculate_text_size(line, font)
+                text_width, text_height = calculate_text_size(line, font, rotation)
                 line_heights.append(text_height)
                 total_height += text_height + 20  # Add spacing between lines
             
@@ -88,7 +89,6 @@ for i, word in enumerate(words):
             # Create a separate image for text and apply random rotation
             text_img = Image.new("L", (img_width, img_height), 0)  # 'L' mode for grayscale
             text_draw = ImageDraw.Draw(text_img)
-            rotation = random.uniform(-15, 15)
 
             for line, line_height in zip(lines, line_heights):
                 text_width, text_height = calculate_text_size(line, font, rotation)
