@@ -56,7 +56,7 @@ for i, word in enumerate(words):
 
     for font_file in font_files:
         font_path = os.path.join(fonts_dir, font_file)
-        font = ImageFont.truetype(font_path, 75)
+        font = ImageFont.truetype(font_path, 60)
         
         # Extract font name without extension for filename
         font_name = os.path.splitext(os.path.basename(font_path))[0]
