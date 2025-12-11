@@ -1,0 +1,12 @@
+FROM /home/alikethunder/Documents/models/cerebras_Qwen3-Coder-REAP-25B-A3B-Q6_K_L.gguf
+TEMPLATE {{ .Prompt }}
+RENDERER qwen3-coder
+PARSER qwen3-coder
+PARAMETER top_k 20
+PARAMETER top_p 0.8
+PARAMETER repeat_penalty 1.05
+PARAMETER stop <|im_start|>
+PARAMETER stop <|im_end|>
+PARAMETER stop <|endoftext|>
+PARAMETER temperature 0.7
+
