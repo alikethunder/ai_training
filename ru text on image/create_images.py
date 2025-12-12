@@ -63,7 +63,7 @@ for i, word in enumerate(words):
         font_path = os.path.join(fonts_dir, font_file)
         font_size = 55
         if any(substring in font_file for substring in ["BadScript", "IBM", "Pinnacle"]):
-          font_size = 40
+          font_size = 30
         font = ImageFont.truetype(font_path, font_size)
         
         # Extract font name without extension for filename
