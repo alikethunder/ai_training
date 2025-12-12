@@ -18,7 +18,7 @@ output_dir = "img"
 os.makedirs(output_dir, exist_ok=True)
 
 # Image size
-img_width, img_height = 720, 1280
+img_width, img_height = 360, 640
 
 # Function to calculate text size using textbbox
 def calculate_text_size(text, font, rotation):
